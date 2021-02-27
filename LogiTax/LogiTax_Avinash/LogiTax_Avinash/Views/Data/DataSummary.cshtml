@@ -1,0 +1,253 @@
+﻿@model IEnumerable<LogiTax_Avinash.Models.DataSummary>
+
+@{
+    ViewBag.Title = "Index";
+    string errorsmsg = string.Empty;
+}
+
+
+<div class="row">
+
+    <div class="panel">
+        <div class="page-header">
+            <h2>Summary</h2>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <label>Duplicate Count</label>
+                <label> @Model.Where(x => x.IsDuplicateData).Count()</label>
+            </div>
+
+            <div class="row">
+                <label>Valid Count</label>
+                <label> @Model.Where(x => x.IsValid).Count()</label>
+            </div>
+            <div class="row">
+                <label>Error Count</label>
+                <label> @Model.Where(x => x.IsErrorData).Count()</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel">
+    <div class="page-header">
+        <h2>Valid Data</h2>
+    </div>
+    <div class="panel-body">
+
+        <table class="table">
+            <tr>
+                <th>
+                    Company Name
+                </th>
+                <th>
+                    GSTIN
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Turnover Amount
+                </th>
+                <th>
+                    Contact Email
+                </th>
+                <th>
+                    Contact Number
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Where(x => x.IsValid))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.GSTIN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.TurnoverAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.ContactEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.ContactNumber)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.UploadData.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.UploadData.Id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
+
+
+
+<div class="panel">
+    <div class="page-header">
+        <h2>Error Data</h2>
+    </div>
+    <div class="panel-body">
+
+        <table class="table">
+            <tr>
+                <td></td>
+                <th>
+                    Company Name
+                </th>
+                <th>
+                    GSTIN
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Turnover Amount
+                </th>
+                <th>
+                    Contact Email
+                </th>
+                <th>
+                    Contact Number
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Where(x => x.IsErrorData))
+            {
+                <tr>
+                    <td>
+                        <ul>
+                            @foreach (var er in item.results.Select(x => x.ErrorMessage))
+                            {
+                                <li>@er</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.GSTIN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.TurnoverAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.ContactEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.ContactNumber)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
+
+
+
+
+<div class="panel">
+    <div class="page-header">
+        <h2>Duplicate Data</h2>
+    </div>
+    <div class="panel-body">
+
+        <table class="table">
+            <tr>
+                <td></td>
+                <th>
+                    Company Name
+                </th>
+                <th>
+                    GSTIN
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Turnover Amount
+                </th>
+                <th>
+                    Contact Email
+                </th>
+                <th>
+                    Contact Number
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.Where(x => x.IsDuplicateData))
+            {
+                <tr>
+                    <td>
+                        <ul>
+                            @foreach (var er in item.results.Select(x => x.ErrorMessage))
+                            {
+                                <li>@er</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.GSTIN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.EndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.TurnoverAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.ContactEmail)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UploadData.ContactNumber)
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+</div>
